@@ -12,13 +12,16 @@
     wget
     wl-clipboard
     wayland-utils
+    nerd-fonts.fira-code
+
+    dotnet-aspnetcore_10
+    dotnet-sdk_10
 
     # inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
     # python313Packages.kde-material-you-colors
     # darkly
     # papirus-icon-theme
     # kdePackages.sierra-breeze-enhanced
-    # nerd-fonts.fira-code
     # plasma-panel-colorizer
     # kde-rounded-corners
   ];

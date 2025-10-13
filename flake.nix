@@ -4,16 +4,27 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
-  outputs = { self, nixpkgs, ... } @inputs: let
+  outputs = { self, home-manager, nixpkgs, ... } @inputs: let
     inherit (self) outputs;
+    overlays = [ (import ./overlays) ];
 
     lib = nixpkgs.lib;
     systems = [ "x86_64-linux" ];
     forEachSystem =  f: lib.genAttrs systems (system: f pkgsFor.${system});
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {
-      inherit system;
+      inherit system overlays;
       config.allowUnfree = true;
     });
     in rec {
@@ -40,6 +51,13 @@
           ) [ "common" ]
         );
 
-    
-  };
+      homeConfigurations.artemos = home-manager.lib.homeManagerConfiguration {
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          lib = lib.extend (_: _: inputs.home-manager.lib);
+          modules = [ ./home ];
+        };
+        pkgs = pkgsFor.x86_64-linux;
+      };
+    };
 }
