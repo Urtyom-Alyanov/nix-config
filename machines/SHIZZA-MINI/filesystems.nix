@@ -17,7 +17,6 @@
   fileSystems."/mnt/windows" =
     { device = "/dev/disk/by-label/Windows";
       fsType = "ntfs";
-      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];

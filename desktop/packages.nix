@@ -12,7 +12,6 @@
     wget
     wl-clipboard
     wayland-utils
-    nerd-fonts.fira-code
 
     dotnet-aspnetcore_10
     dotnet-sdk_10

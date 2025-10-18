@@ -1,9 +1,10 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
+  imports = (lib.allExceptThisDefault ./.);
+
   home.username = "artemos";
   home.homeDirectory = "/home/artemos";
-  imports = (lib.allExceptThisDefault ./.);
   home.packages = with pkgs; [
     # Общие CLI-утилиты
     git
@@ -14,6 +15,7 @@
 
     # Шрифты и темы (доступны везде)
     noto-fonts
+    nerd-fonts.fira-code
     liberation_ttf
     papirus-icon-theme
   ];
@@ -76,5 +78,25 @@
       name = "Papirus";
       package = pkgs.papirus-icon-theme;
     };
+  };
+
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirs = true;
+
+      desktop = "${config.home.homeDirectory}/Desktop";
+      documents = "${config.home.homeDirectory}/Documents";
+      download = "${config.home.homeDirectory}/Downloads";
+      music = "${config.home.homeDirectory}/Music";
+      pictures = "${config.home.homeDirectory}/Pictures";
+      publicShare = "${config.home.homeDirectory}/Public";
+      templates = "${config.home.homeDirectory}/Templates";
+      videos = "${config.home.homeDirectory}/Videos";
+    };
+
+    # autostart = {
+    #   enable = true;
+    # };
   };
 }

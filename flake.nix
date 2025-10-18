@@ -14,9 +14,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hypr-dinamic-cursors = {
+      url = "github:VirtCode/hypr-dynamic-cursors";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    hyprland.url = "github:hyprwm/hyprland";
   };
 
-  outputs = { self, home-manager, nixpkgs, ... } @inputs: let
+  outputs = { self, home-manager, nixpkgs, plasma-manager, ... } @inputs: let
     inherit (self) outputs;
     overlays = [ (import ./overlays) ];
 
@@ -55,7 +65,10 @@
         extraSpecialArgs = {
           inherit inputs outputs;
           lib = lib.extend (_: _: inputs.home-manager.lib);
-          modules = [ ./home ];
+          modules = [
+            plasma-manager.homeModules.plasma-manager
+            ./home
+          ];
         };
         pkgs = pkgsFor.x86_64-linux;
       };
