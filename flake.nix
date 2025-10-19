@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -26,7 +30,7 @@
     hyprland.url = "github:hyprwm/hyprland";
   };
 
-  outputs = { self, home-manager, nixpkgs, plasma-manager, ... } @inputs: let
+  outputs = { self, home-manager, nur, nixpkgs, plasma-manager, ... } @inputs: let
     inherit (self) outputs;
     overlays = [ (import ./overlays) ];
 
@@ -45,6 +49,7 @@
 
             system = "x86_64-linux";
             modules = [
+                nur.modules.nixos.default
                 ./system
                 ./desktop
                 ./machines/${name}
@@ -66,6 +71,7 @@
           inherit inputs outputs;
           lib = lib.extend (_: _: inputs.home-manager.lib);
           modules = [
+            nur.modules.homeManager.default
             plasma-manager.homeModules.plasma-manager
             ./home
           ];

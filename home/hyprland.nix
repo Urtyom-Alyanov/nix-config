@@ -734,7 +734,11 @@
       '';
     };
 
-    hyprshot.enable = true;
+    hyprshot = {
+      enable = true;
+      
+      saveLocation = "${config.home.homeDirectory}/Pictures/Screenshots";
+    };
 
     hyprlock = {
       enable = true;
