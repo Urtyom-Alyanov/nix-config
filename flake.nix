@@ -48,7 +48,7 @@
       (final: prev: import ./packages { inherit (final) lib; })
     ] ++ (import ./overlays);
 
-    lib = nixpkgs.lib;
+    lib = nixpkgs.lib.extend (_: _: import ./lib { lib = nixpkgs.lib; });
     systems = [ "x86_64-linux" ];
     forEachSystem =  f: lib.genAttrs systems (system: f pkgsFor.${system});
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {
