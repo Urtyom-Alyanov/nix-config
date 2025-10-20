@@ -314,8 +314,8 @@
         };
       };
     };
-    plugins = [
-      hyprlandPlugins.hypr-dynamic-cursors
+    plugins = with pkgs.hyprlandPlugins; [
+      hypr-dynamic-cursors
     ];
   };
 
