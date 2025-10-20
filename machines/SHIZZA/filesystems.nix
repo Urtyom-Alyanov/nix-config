@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/8d30fb61-104b-4779-98dd-ce6732877fd2";
+    { device = "/dev/disk/by-uuid/dfef28af-f920-4ed4-89ea-dd9b4e3bdfab";
       fsType = "ext4";
     };
 
@@ -11,7 +11,7 @@
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/402adf62-d8d9-4e95-840d-d0da49dd46b1";
+    { device = "/dev/disk/by-uuid/831824da-26ea-4ff1-ae7c-71e5bd54fdb4";
       fsType = "btrfs";
     };
 
