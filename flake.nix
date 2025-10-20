@@ -27,7 +27,7 @@
       inputs.hyprland.follows = "hyprland";
     };
     loginom = {
-      url = "github.com:Urtyom-Alyanov/loginom-community-package";
+      url = "github:Urtyom-Alyanov/loginom-community-package";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
