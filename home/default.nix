@@ -13,7 +13,7 @@
     firefox
     direnv
 
-    inputs.loginom.packages.${system}.loginom-community
+    loginom-community
 
     # Шрифты и темы (доступны везде)
     noto-fonts

@@ -36,7 +36,16 @@
 
   outputs = { self, home-manager, nur, nixpkgs, plasma-manager, ... } @inputs: let
     inherit (self) outputs;
-    overlays = [ (import ./overlays) ];
+    overlays = [
+      final: prev: {
+        loginom-community = inputs.loginom.packages.${final.system}.loginom-community;
+        hyprland = inputs.hyprland.packages.${final.system}.hyprland;
+        xdg-desktop-portal-hyprland = inputs.hyprland.packages.${final.system}.xdg-desktop-portal-hyprland;
+        hyprlandPlugins = inputs.hyprland-plugins.packages.${final.system};
+        hyprlandPlugins.hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${final.system}.hypr-dynamic-cursors;
+      }
+      (final: prev: import ./packages { inherit (final) lib; })
+    ] ++ (import ./overlays);
 
     lib = nixpkgs.lib;
     systems = [ "x86_64-linux" ];

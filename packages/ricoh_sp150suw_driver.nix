@@ -1,14 +1,25 @@
-{ lib, pkgs, stdenv }:
+{ lib, stdenv, fetchurl, p7zip, binutils, gnutar, gzip, cups, jbigkit, imagemagick, ghostscript }:
 stdenv.mkDerivation rec {
+  # INFO
   pname = "ricoh_sp150suw_driver";
   version = "v1.0.27";
+  propagatedUserEnvPkgs = [ cups jbigkit imagemagick ghostscript ];
 
-  src = pkgs.fetchUrl {
+  meta = with lib; {
+    description = "Printing driver for Ricoh SP150SUw";
+    homepage = "http://support.ricoh.com/bb/html/dr_ut_e/re1/model/sp150suw/sp150suw.htm";
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+  };
+
+  # BUILD
+
+  src = fetchurl {
     url = "https://support.ricoh.com/bb/pub_e/dr_ut_e/0001296/0001296582/V10_27/r76362L2.exe";
     sha256 = "0jfa9gxbqxkc21ahs8p4pibhfz7niz4llimkkhryp9m7s32j5qn3";
   };
 
-  nativeBuildInputs = [ p7zip binutils gnutar gzip ]; 
+  nativeBuildInputs = [ p7zip binutils gnutar gzip ];
 
   unpackPhase = ''
     runHook preUnpack
@@ -35,11 +46,4 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-
-  meta = with pkgs.lib; {
-    description = "Printing driver for Ricoh SP150SUw";
-    homepage = "http://support.ricoh.com/bb/html/dr_ut_e/re1/model/sp150suw/sp150suw.htm";
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-  };
 }

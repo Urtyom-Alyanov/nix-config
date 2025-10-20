@@ -2,8 +2,9 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    # Overlay rewrite pkgs.hyprland and pkgs.xdg-desktop-portal-hyprland used by default from flake
+    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     settings = {
       # Applications
       "$terminal" = "${pkgs.kitty}/bin/kitty";
@@ -314,7 +315,7 @@
       };
     };
     plugins = [
-      inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
+      hyprlandPlugins.hypr-dynamic-cursors
     ];
   };
 
