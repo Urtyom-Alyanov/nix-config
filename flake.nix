@@ -26,6 +26,10 @@
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
     };
+    loginom = {
+      url = "github.com:Urtyom-Alyanov/loginom-community-package";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland.url = "github:hyprwm/hyprland";
   };

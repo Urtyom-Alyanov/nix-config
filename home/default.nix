@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
   imports = (lib.allExceptThisDefault ./.);
@@ -12,6 +12,8 @@
     zsh
     firefox
     direnv
+
+    inputs.loginom.packages.${system}.loginom-community
 
     # Шрифты и темы (доступны везде)
     noto-fonts
@@ -93,6 +95,12 @@
       publicShare = "${config.home.homeDirectory}/Public";
       templates = "${config.home.homeDirectory}/Templates";
       videos = "${config.home.homeDirectory}/Videos";
+
+      extraConfig = {
+        XDG_GAMES_DIR = "${config.home.homeDirectory}/Games";
+        XDG_PROJECTS_DIR = "${config.home.homeDirectory}/Documents/Projects";
+        XDG_MISC_DIR = "${config.home.homeDirectory}/Misc";
+      };
     };
 
     # autostart = {
